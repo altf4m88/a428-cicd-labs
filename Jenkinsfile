@@ -28,8 +28,7 @@ pipeline {
                 sh 'sleep 1'
                 sh 'echo $! > .pidfile'
                 sh 'set +x'
-
-                sh "input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'"
+                
                 sh 'set -x'
                 sh 'kill $(cat .pidfile)'
             }
