@@ -29,8 +29,6 @@ pipeline {
                 sh 'echo $! > .pidfile'
                 sh 'set +x'
                 
-                sh 'set -x'
-                sh 'kill $(cat .pidfile)'
             }
         }
     }
