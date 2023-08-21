@@ -19,21 +19,23 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'set -x'
-                sh 'npm run build'
-                sh 'set +x'
+                sh '''
+                    set -x
+                    npm run build
+                    set +x
 
-                sh 'set -x'
-                sh 'npm start &'
-                sh 'sleep 1'
-                sh 'echo $! > .pidfile'
-                sh 'set +x'
-                
-                sh 'sleep 60'
-                
-                sh 'set -x'
-                sh 'cat .pidfile'
-                sh 'kill'
+                    set -x
+                    npm start &
+                    sleep 1
+                    echo $! > .pidfile
+                    set +x
+                    
+                    sleep 60
+                    
+                    set -x
+                    PID=$(cat .pidfile | tr -d '[:space:]')
+                    kill $PID
+                '''
             }
         }
     }
